@@ -1,11 +1,11 @@
 package com.asadabdalla.soccerplayer.controllers;
 
 import com.asadabdalla.soccerplayer.models.Player;
-import com.asadabdalla.soccerplayer.repositories.PlayerRepository;
 import com.asadabdalla.soccerplayer.services.PlayerService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @AllArgsConstructor
@@ -13,7 +13,6 @@ import java.util.List;
 @RequestMapping(path = "api/v1/players")
 public class PlayerController {
 
-    private final PlayerRepository playerRepository;
     private final PlayerService playerService;
 
     @GetMapping
@@ -22,7 +21,7 @@ public class PlayerController {
     }
 
     @PostMapping
-    public void addPlayer(@RequestBody Player player) {
+    public void addPlayer(@Valid @RequestBody Player player) {
         playerService.addPlayer(player);
     }
 

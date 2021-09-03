@@ -17,6 +17,7 @@ import {
 } from "@material-ui/core";
 import {addPlayer } from '../apiCall'
 import { useSnackbar } from "notistack";
+import {errorNotification} from "./Notification";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -63,9 +64,14 @@ export default function AddPlayerModal({fetchPlayers, handleModalOpen, handleMod
             enqueueSnackbar("Player added successfully", { variant: "success" });
             fetchPlayers()
             handleModalClose()
-        }).catch(err => {
-            console.log(err)
-        })
+        }).catch(error => {
+            error.response.json().then(res => {
+                errorNotification(
+                    "There is an issue with the server.",
+                    `${res.message} [statusCode: ${res.status}]`
+                )
+            })
+        });
 
 
     };

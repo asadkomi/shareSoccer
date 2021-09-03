@@ -19,6 +19,7 @@ import AddIcon from "@material-ui/icons/Add";
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import EditIcon from '@material-ui/icons/Edit';
 import AddPlayerModal from "./components/AddPlayerModal";
+import {errorNotification} from "./components/Notification";
 
 
 const drawerWidth = 240;
@@ -125,8 +126,15 @@ function App() {
             .then(res => res.json())
             .then(data => {
                 setPlayers(data)
-                setLoading(false)
-            })
+
+            }).catch(error => {
+                error.response.json().then(res => {
+                    errorNotification(
+                        "There is an issue with the server.",
+                        `${res.message} [statusCode: ${res.status}]`
+                    )
+                })
+            }).finally(() => setLoading(false))
     }
 
     useEffect(() => {
@@ -140,7 +148,14 @@ function App() {
     const handleDeletePlayer = (playerId, callBack) => {
         deletePlayer(playerId).then(() => {
             callBack();
-        })
+        }).catch(error => {
+    error.response.json().then(res => {
+        errorNotification(
+            "There is an issue with the server.",
+            `${res.message} [statusCode: ${res.status}]`
+        )
+    })
+})
     }
 
     return (
