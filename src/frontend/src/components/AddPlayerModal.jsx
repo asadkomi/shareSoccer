@@ -5,15 +5,11 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import { Controller, useForm } from "react-hook-form";
 import {
-    Grid,
     List,
     ListItem,
-    Typography,
     Button,
     TextField,
     MenuItem,
-    Divider,
-    CircularProgress,
 } from "@material-ui/core";
 import {addPlayer } from '../apiCall'
 import { useSnackbar } from "notistack";
@@ -46,7 +42,6 @@ export default function AddPlayerModal({fetchPlayers, handleModalOpen, handleMod
         handleSubmit,
         control,
         formState: { errors },
-        setValue,
     } = useForm();
 
     const submitHandler = ({ name, team, img, gender }) => {
