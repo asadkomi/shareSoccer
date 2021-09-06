@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
     },
     appBarShift: {
         marginLeft: drawerWidth,
+
         width: `calc(100% - ${drawerWidth}px)`,
         transition: theme.transitions.create(['width', 'margin'], {
             easing: theme.transitions.easing.sharp,
@@ -155,7 +156,7 @@ function App() {
 
         <div className={classes.root}>
             <CssBaseline/>
-            <AppBar position="fixed">
+            <AppBar position="fixed" style={{background:'#fff', color: "#333"}}>
                 <Toolbar>
 
                     <Typography variant="h6" noWrap>
