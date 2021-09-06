@@ -16,7 +16,7 @@ env:
   AWS_REGION: us-east-2
   EB_ENVIRONMENT_NAME: Springbootreactsoccerplayer-env
   EB_APPLICATION_NAME: springboot-react-soccerplayer
-  EB_DEPLOYMENT_PACKAGE: elasticbeanstalk/docker-compose.yml
+  EB_DEPLOYMENT_PACKAGE: aws/docker-compose.yml
 
 jobs:
   deploy:
@@ -73,12 +73,12 @@ jobs:
       - name: Update and commit app version in docker-compose.yaml
         run: |
           BUILD_NUMBER=${{steps.build-number.outputs.BUILD_NUMBER}}
-          echo -e "Current elasticbeanstalk/docker-compose.yml\n$(cat elasticbeanstalk/docker-compose.yml)"
-          sed -i -E 's_(asadkomi/spring-react-soccerplayer:)([^"]*)_\1'${BUILD_NUMBER}'_' elasticbeanstalk/docker-compose.yml
-          echo -e "Current elasticbeanstalk/docker-compose.yml\n$(cat elasticbeanstalk/docker-compose.yml)"
+          echo -e "Current aws/docker-compose.yml\n$(cat aws/docker-compose.yml)"
+          sed -i -E 's_(asadkomi/spring-react-soccerplayer:)([^"]*)_\1'${BUILD_NUMBER}'_' aws/docker-compose.yml
+          echo -e "Current aws/docker-compose.yml\n$(cat aws/docker-compose.yml)"
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add elasticbeanstalk/docker-compose.yml
+          git add aws/docker-compose.yml
           git commit -m "new app version: ${BUILD_NUMBER}"
           git push
 
